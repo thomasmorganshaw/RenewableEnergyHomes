@@ -1,0 +1,57 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+ 
+  - task: DotNetCoreCLI@2
+    displayName: restore
+    inputs:
+      command: 'restore'
+      projects: '**/*.csproj'
+      feedsToUse: 'select'
+  
+  - task: DotNetCoreCLI@2
+    displayName: build
+    inputs:
+      command: 'build'
+      projects: '**/*.csproj'
+  
+  - task: DotNetCoreCLI@2
+    displayName: publish
+    inputs:
+      command: 'publish'
+      publishWebProjects: false
+      projects: '**/*.csproj'
+      arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+  
+  - task: PublishBuildArtifacts@1
+    displayName: publish drop artifacts
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'drop'
+      publishLocation: 'Container'
+ 
+  - task: CopyFiles@2
+    displayName: copy arm template
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)'
+      Contents: 'arm-template.json'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'     
+  
+  - task: PublishBuildArtifacts@1
+    displayName: publish deploy artifacts
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/arm-template.json'
+      ArtifactName: 'deploy'
+      publishLocation: 'Container'       
