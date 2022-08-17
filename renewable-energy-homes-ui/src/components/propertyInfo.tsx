@@ -5,6 +5,7 @@ import Stack from '@mui/material/Stack';
 import Card from '@mui/material/Card';
 import Box from '@mui/material/Box';
 import CardContent from '@mui/material/CardContent';
+import Chip from '@mui/material/Chip';
 import Divider from '@mui/material/Divider';
 import AddressLine from '../components/addressLine';
 import Button from '@mui/material/Button';
@@ -79,9 +80,7 @@ class PropertyInfo extends React.Component<Props, State> {
               <Box sx={{ m: 2 }}>
                 <Stack spacing={1}>
                   <label>EPC Rating</label>
-                  <label>
-                    <strong>A94 </strong>
-                  </label>
+                  <label><strong>{this.props.propertyResult.epcRating}</strong></label>
                 </Stack>
               </Box>
             </Grid>

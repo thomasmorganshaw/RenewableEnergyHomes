@@ -23,11 +23,21 @@ namespace RenewableEnergyHomes.Infrastructure.Repositories
         {
             using (var connection = new SqlConnection(_connectionString))
             {
-                var propertySalesResult = await connection
-                    .QueryAsync<PropertySale>(
+                var multi = await connection
+                    .QueryMultipleAsync(
                         "dbo.PropertySalesByPostcode",
                         new { Postcode = postcode },
                         commandType: CommandType.StoredProcedure);
+
+                var propertySalesResult = multi.Read<PropertySale>();
+                var propertyFeaturesResult = multi.Read<PropertyFeature>();
+
+                foreach(var property in propertySalesResult)
+                {
+                    property.PropertyFeatures = propertyFeaturesResult
+                        .Where(feature => feature.PropertyId == property.Id)
+                        .ToList();
+                }
 
                 Log.Information("PropertySalesResult {@propertySalesResult}", propertySalesResult);
                 return propertySalesResult.ToList();

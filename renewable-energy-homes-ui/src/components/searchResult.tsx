@@ -8,33 +8,33 @@ interface Props {
 }
 
 interface State {
-    
+
 }
- 
+
 class SearchResult extends React.Component<Props, State> {
-    state = { }
+    state = {}
 
     hasResults = () => {
         return this.props.results?.length !== 0;
     }
 
-    render() { 
+    render() {
 
-        const { results } = this.props // object descrtucturing
+        const { results } = this.props // object destructuring
 
         return (
             <>
                 {!this.hasResults() && <Card className="App-no-map">No properties found.</Card>}
-                {this.hasResults() && 
+                {this.hasResults() &&
                     <Stack spacing={2}>
-                        {results.map(result => 
-                            <PropertyInfo key={result.id} propertyResult={result}/>
+                        {results.map(result =>
+                            <PropertyInfo key={result.id} propertyResult={result} />
                         )}
                     </Stack>
-                } 
+                }
             </>
         );
     }
 }
- 
+
 export default SearchResult;
