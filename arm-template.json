@@ -10,6 +10,13 @@
         "description": "Web app name."
       }
     },
+    "appServicePlanName": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "The app service plan"
+      }
+    },
     "location": {
       "type": "string",
       "defaultValue": "[resourceGroup().location]",
@@ -30,20 +37,6 @@
       "metadata": {
         "description": "Optional Git Repo URL"
       }
-    },
-    "appServicePlanName": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "description": "The app service plan"
-      }
-    },
-    "aacConnectionString": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "description": "Testing if value comes from KV"
-      }
     }
   },
   "variables": {
@@ -56,6 +49,9 @@
       "apiVersion": "2020-06-01",
       "name": "[parameters('webAppName')]",
       "location": "[parameters('location')]",
+      "identity": {
+        "type": "SystemAssigned"
+      },
       "properties": {
         "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanPortalName'))]"
       },
@@ -86,10 +82,6 @@
     "subscriptionObject": {
       "type": "object",
       "value": "[subscription()]"
-    },
-    "aacConnectionString": {
-      "type": "string",
-      "value": "[parameters('aacConnectionString')]"
     }
   }
 }
