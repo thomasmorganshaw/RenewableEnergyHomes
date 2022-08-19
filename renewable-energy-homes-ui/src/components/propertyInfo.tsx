@@ -10,12 +10,7 @@ import Divider from '@mui/material/Divider';
 import AddressLine from '../components/addressLine';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
-import Tooltip from '@mui/material/Tooltip';
-
-const homeIcon = 'https://morganshawwebassets.blob.core.windows.net/assets/home-icon.png'
-const evIcon = 'https://morganshawwebassets.blob.core.windows.net/assets/ev-icon.png'
-const solarIcon = 'https://morganshawwebassets.blob.core.windows.net/assets/solar-icon.png'
-const windIcon = 'https://morganshawwebassets.blob.core.windows.net/assets/wind-icon.png'
+import PropertyFeature from '../components/propertyFeature';
 
 const CustomButton = styled(Button)({
   color: 'white',
@@ -87,18 +82,9 @@ class PropertyInfo extends React.Component<Props, State> {
           </Grid>
           <Grid container>
             <Grid sx={{ m: 2 }}>
-              <Tooltip title="EV charging point">
-                <img style={{ display: 'block', width: '40px', paddingRight: '10px', float: 'right' }} src={evIcon} alt="EV charging point" />
-              </Tooltip>
-              <Tooltip title="Wind turbine generator">
-                <img style={{ display: 'block', width: '40px', paddingRight: '10px', float: 'right' }} src={windIcon} alt="Wind turbine generator" />
-              </Tooltip>
-              <Tooltip title="Solar panel roof installation">
-                <img style={{ display: 'block', width: '40px', paddingRight: '10px', float: 'right' }} src={solarIcon} alt="Solar panel roof installation" />
-              </Tooltip>
-              <Tooltip title="Battery storage unit">
-                <img style={{ display: 'block', width: '40px', paddingRight: '10px', float: 'right' }} src={homeIcon} alt="Battery storage unit" />
-              </Tooltip>
+              {this.props.propertyResult.propertyFeatures.map(feature =>
+                <PropertyFeature key={feature.propertyFeatureId} feature={feature} />
+              )}
             </Grid>
             <Grid item xs={12} md={6}>
               <Box sx={{ m: 2 }}>
