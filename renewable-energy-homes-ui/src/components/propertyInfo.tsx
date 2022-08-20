@@ -81,17 +81,15 @@ class PropertyInfo extends React.Component<Props, State> {
             </Grid>
           </Grid>
           <Grid container>
-            <Grid sx={{ m: 2 }}>
+            <Grid item xs={12} md={6}>
               {this.props.propertyResult.propertyFeatures.map(feature =>
                 <PropertyFeature key={feature.propertyFeatureId} feature={feature} />
               )}
             </Grid>
             <Grid item xs={12} md={6}>
-              <Box sx={{ m: 2 }}>
-                <Button variant="outlined" size="large" fullWidth>
-                  Make Booking
-                </Button>
-              </Box>
+              <Button variant="outlined" size="large" fullWidth>
+                Make Booking
+              </Button>
             </Grid>
           </Grid>
         </CardContent>

@@ -1,21 +1,17 @@
 import * as React from 'react';
-import InputAdornment from '@mui/material/InputAdornment';
-import OutlinedInput from '@mui/material/OutlinedInput';
 import Typography from '@mui/material/Typography';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
-import IconButton from '@mui/material/IconButton';
-import Icon from '@mui/material/Icon';
 import Button from '@mui/material/Button';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled } from '@mui/material/styles';
 
-// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
-const top100Films = [
+const samplePostcodes = [
   { label: 'CO38WR' },
   { label: 'S337ZP' },
   { label: 'SW11AA' },
+  { label: 'LA229JU' }
 ];
 
 const CustomButton = styled(Button)({
@@ -61,7 +57,7 @@ class Search extends React.Component<Props, State> {
               id="free-solo-2-demo"
               disableClearable
               onChange={this.handleChange}
-              options={top100Films.map((option) => option.label)}
+              options={samplePostcodes.map((option) => option.label)}
               renderInput={(params) => (
                 <TextField
                   {...params}
