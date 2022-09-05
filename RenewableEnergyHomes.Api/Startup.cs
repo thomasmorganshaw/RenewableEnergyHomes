@@ -56,10 +56,10 @@ namespace RenewableEnergyHomes.Api
 
             app.UseRouting();
 
-#if DEBUG
+//#if DEBUG
             //Use localhost CORs policy for React UI project debugging
             app.UseCors(LocalhostCorsPolicy);
-#endif
+//#endif
 
             app.UseAuthorization();
 
